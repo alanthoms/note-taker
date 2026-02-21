@@ -55,6 +55,43 @@ app.post("/data", (req, res) => {
   res.json({ message: "Data saved successfully", data: newData });
 });
 
+// Handle GET request to retrieve data by ID
+app.get("/data/:id", (req, res) => {
+  const data = readData();
+  const item = data.find((item) => item.id === req.params.id);
+  if (!item) {
+    return res.status(404).json({ message: "Data not found" });
+  }
+  res.json(item);
+});
+
+// TODO: Handle PUT request to update data by ID
+app.put("/data/:id", (req, res) => {
+  const data = readData();
+  const item = data.find((item) => item.id === req.params.id);
+  if (!item) {
+    return res.status(404).json({ message: "Data not found" });
+  }
+  (newemail, newpassword, newname, (newrole = { ...req.body }));
+
+  item.email = req.body.email;
+  item.password = req.body.password;
+  item.name = req.body.name;
+  item.role = req.body.role;
+  writeData(data);
+  res.json({ message: "Item updated successfully" });
+});
+
+// TODO: Handle DELETE request to delete data by ID
+app.delete("/data/:id", (req, res) => {
+  const data = readData();
+  const item = data.find((item) => item.id === req.params.id);
+  if (!item) {
+    return res.status(404).json({ message: "Data not found" });
+  }
+  data.delete(item);
+});
+
 // Handle POST request at the /echo route
 app.post("/echo", (req, res) => {
   // Respond with the same data that was received in the request body
