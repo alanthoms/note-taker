@@ -120,7 +120,7 @@ button {
   padding: 10px;
   width: 25%;
   border: none;
-  background: #28a745;
+  background: #09024e;
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -128,4 +128,7 @@ button {
 
 button:hover {
   background: #218838;
+}
+li {
+  display: flex;
 }
