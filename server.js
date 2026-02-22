@@ -72,12 +72,7 @@ app.put("/data/:id", (req, res) => {
   if (!item) {
     return res.status(404).json({ message: "Data not found" });
   }
-  (newemail, newpassword, newname, (newrole = { ...req.body }));
-
-  item.email = req.body.email;
-  item.password = req.body.password;
-  item.name = req.body.name;
-  item.role = req.body.role;
+  item.text = req.body.text;
   writeData(data);
   res.json({ message: "Item updated successfully" });
 });
