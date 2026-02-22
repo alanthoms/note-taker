@@ -11,11 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
       dataList.innerHTML = ""; // Clear the list before rendering
       data.forEach((item) => {
         const li = document.createElement("li");
-        li.textContent = item.id + ": " + JSON.stringify(item);
+        li.textContent = item.text;
         const editButton = document.createElement("button");
         editButton.innerHTML = "Edit";
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Delete";
+        //store item id inside delete button
+        deleteButton.setAttribute("data-id", item.id);
+
+        deleteButton.addEventListener("click", async () => {
+          await deleteItem(item.id);
+        });
+
         li.append(editButton, deleteButton);
         dataList.appendChild(li);
       });
@@ -45,7 +52,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  deleteButton.addEventListener("click", async (event) => {});
+  const deleteItem = async (id) => {
+    try {
+      console.log(id);
+      const response = await fetch(`/data/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        fetchData();
+      } else {
+        console.error("failed to delete");
+      }
+    } catch (error) {
+      console.error("error deleteing ", error);
+    }
+  };
 
   // Fetch data on page load
   fetchData();

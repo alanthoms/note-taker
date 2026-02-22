@@ -89,7 +89,9 @@ app.delete("/data/:id", (req, res) => {
   if (!item) {
     return res.status(404).json({ message: "Data not found" });
   }
-  data.delete(item);
+  const filteredData = data.filter((item) => item.id !== req.params.id);
+  writeData(filteredData);
+  res.json({ message: "Item deleted successfully" });
 });
 
 // Handle POST request at the /echo route
